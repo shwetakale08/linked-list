@@ -1,0 +1,169 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define cnewnode (struct node*)malloc(sizeof(struct node));
+typedef struct node
+{
+	int data;
+	struct node *next;
+};
+
+node *create(node *list)
+{
+	int i,n;
+	node *temp,*newnode;
+	printf("Enter limit:");
+	scanf("%d",&n);
+	for(i=0;i<n;i++)
+	{
+		newnode=cnewnode;
+		printf("Enter value:");
+		scanf("%d",&newnode->data);
+		if(list==NULL)
+		{
+			temp=newnode;
+			list=newnode;
+			newnode->next=list;
+		}
+		else
+		{
+			temp->next=newnode;
+			temp=newnode;
+			newnode->next=list;
+		}
+	}
+	return list;
+}
+
+void display(node *list)
+{
+	node *temp;
+	temp=list;
+	do
+	{
+	printf("%d\t",temp->data);
+	temp=temp->next;
+	}while(temp!=list);
+	
+}
+node *insertbeg(node *list)
+{	
+	node *newnode,*temp;
+	newnode=cnewnode;
+	printf("Enter value:");
+	scanf("%d",&newnode->data);
+	for(temp=list;temp->next!=list;temp=temp->next);
+{
+	newnode->next=list;
+	list=newnode;
+	temp->next=list;
+}
+return list;
+}
+
+node *insertmid(node *list)
+{
+	node *newnode,*temp;
+	int pos,i;
+	printf("Enter position:");
+	scanf("%d",&pos);
+	newnode=cnewnode;
+	printf("Enter value:");
+	scanf("%d",&newnode->data);
+	for(i=1,temp=list;i<(pos-1)&&temp->next!=list;i++,temp=temp->next);
+	{
+		newnode->next=temp->next;
+		temp->next=newnode;
+		
+	}
+	return list;
+}
+node *insertend(node *list)
+{
+	node *newnode,*temp;
+	newnode=cnewnode;
+	printf("Enter value:");
+	scanf("%d",&newnode->data);
+	for(temp=list;temp->next!=list;temp=temp->next);
+	{
+		temp->next=newnode;
+		newnode->next=list;
+	}
+	return list;
+}
+node *delbeg(node *list)
+{
+	node *temp,*temp1;
+	for(temp1=list;temp1->next!=list;temp1=temp1->next);
+{
+	temp=list;
+	list=temp->next;
+	temp1->next=list;
+	free(temp);
+}
+return list;
+}
+
+node *delend(node *list)
+{
+	node *temp,*temp1;
+	for(temp=list;temp->next->next!=list;temp=temp->next);
+{
+	temp1=temp->next;
+	temp->next=list;
+	free(temp1);
+}
+return list;
+}
+
+node *delmid(node *list)
+{
+	node *temp,*temp1;
+	int pos,i;
+	printf("Enter position:");
+	scanf("%d",&pos);
+	for(i=1,temp=list;i<(pos-1)&&temp->next!=NULL;i++,temp=temp->next);
+{
+    temp1=temp->next;
+	temp->next=temp1->next;
+	free(temp1);
+}
+return list;
+
+}
+int main()
+{
+	int ch;
+	node *list=NULL;
+	do
+	{
+	printf("\n1-create");
+	printf("\n2-display");
+	printf("\n3-insert beginning");
+	printf("\n4-insert middle");
+	printf("\n5-insert end");
+	printf("\n6-delete beginning");
+	printf("\n7-delete end");
+	printf("\n8-delete mid");
+	printf("\nEnter your choice:");
+	scanf("%d",&ch);	
+	switch(ch)
+	{
+		case 1:list=create(list);
+		       break;
+		case 2:display(list);
+		       break;
+		case 3:list=insertbeg(list);
+		       break;
+		case 4:list=insertmid(list);
+		       break;
+		case 5:list=insertend(list);
+		       break; 
+		case 6:list=delbeg(list);
+		       break;	
+		case 7:list=delend(list);
+		       break;		
+	 	case 8:list=delmid(list);
+		       break;		            
+		}	
+	}while(ch<9);
+}
