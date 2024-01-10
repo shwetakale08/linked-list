@@ -1,0 +1,62 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define cnode (struct node *)malloc(sizeof(struct node))
+typedef struct node
+{
+	int data;
+	struct node *next;
+}node;
+ node *create( node *list)
+{
+	int i,n;
+     node *temp,*newnode;
+	printf("Enter limit:");
+	scanf("%d",&n);
+	for(i=0;i<n;i++)
+	{
+		newnode=cnode;
+		printf("Enter value:");
+		scanf("%d",&newnode->data);
+		newnode->next=NULL;
+		if(list==NULL)
+		{
+			list=newnode;
+			temp=newnode;
+		}
+		else
+		{
+			temp->next=newnode;
+			temp=newnode;
+		}
+	}
+	return list;
+}
+void disp( node *list)
+{
+	node *temp;
+	for(temp=list;temp!=NULL;temp=temp->next)
+	{
+		printf("%d\t",temp->data);
+	}
+}
+int main()
+{
+	node *list=NULL;
+	int ch;
+	do
+	{
+		printf("\n1-create");
+		printf("\n2-display");
+		printf("\nEnter your choice");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+			case 1:list=create(list); 
+			        break;
+			
+			case 2:disp(list); 
+			        break;        
+		}
+		
+	}while(ch<3);
+}
